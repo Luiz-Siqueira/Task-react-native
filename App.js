@@ -1,8 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,TextInput,TouchableOpacity,FlatList} from 'react-native';
 
 export default function App() {
+
+  const DATA = [
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      title: 'primeira nota',
+    },
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      title: 'segunda nota',
+    },
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      title: 'terceira nota',
+    },
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      title: 'quarta nota',
+    },
+  ];
+
   return (
     <View style={styles.container}>
       <View style={styles.container_flex}>
@@ -15,6 +35,12 @@ export default function App() {
         <Text style={styles.textButton}>+</Text>
       </TouchableOpacity>
       </View>
+
+      <FlatList
+        data={DATA}
+        renderItem={({item}) => <Text style={styles.item} >{item.title}</Text>}
+        keyExtractor={item => item.id}
+      />
       <StatusBar style="auto" />
     </View>
   );
@@ -52,5 +78,13 @@ const styles = StyleSheet.create({
   textButton:{
     fontSize:25
   },
+  item:{
+    width:400,
+    height:60,
+    backgroundColor:'gray',
+    marginBottom:10,
+    borderRadius:15,
+    
+  }
 
 });
