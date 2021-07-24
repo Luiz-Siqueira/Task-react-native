@@ -1,45 +1,43 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { CheckBox,StyleSheet, Text, View,TextInput,TouchableOpacity,FlatList} from 'react-native';
+import React,{useState} from 'react';
+import { StyleSheet, Text, View,TextInput,TouchableOpacity,FlatList} from 'react-native';
+import firebase from './services/firebaseConnection';
 
 import Lista from './pages/Lista';
 
 export default function App() {
 
-  const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'primeira nota',
-    },
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28be',
-      title: 'segunda nota',
-    },
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28bi',
-      title: 'terceira nota',
-    },
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28bo',
-      title: 'quarta nota',
-    },
-  ];
+  const [valInput,setValInput] = useState();
+  const [data,setData] = useState([]);
+
+
+
+  async function sendInputList(){
+    await firebase.database().ref('task').child(1).set({
+      id:1,
+      text:valInput,
+      checked:false,
+    })
+  }
+
 
   return (
     <View style={styles.container}>
       <View style={styles.container_flex}>
       <TextInput style={styles.input}
           placeholder="Digite uma tarefa"
+          onChangeText={(text)=>setValInput(text)}
+          value={valInput}
       />
       <TouchableOpacity style={styles.button_plus}
-        onPress={()=>alert('Falta funcao de enviar')}
+        onPress={()=>sendInputList()}
       >
         <Text style={styles.textButton}>+</Text>
       </TouchableOpacity>
       </View>
       <FlatList
-        data={DATA}
-        renderItem={({item}) => <Lista style={styles.item} data={item}/>}
+        data={data}
+        renderItem={({item}) => <Lista style={styles.item}  data={item}/>}
         keyExtractor={item => item.id}
       />
       <StatusBar style="auto" />
@@ -66,30 +64,25 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 0,
     borderTopLeftRadius: 15,
     borderWidth:2,
-    borderColor:'#104E8B',
-    fontSize:18
+    borderColor:'#38A8E7',
+    fontSize:18,
+    borderRightWidth:0,
   },
   button_plus:{
     width:'20%',
     borderBottomRightRadius: 15,
     borderTopRightRadius:15,
     borderWidth:2,
+    borderLeftWidth:0,
     alignItems: 'center',
-    borderColor:'#104E8B',
+    borderColor:'#38A8E7',
     justifyContent: 'center',
-    backgroundColor:'#104E8B',
+    backgroundColor:'#38A8E7',
     
   },
   textButton:{
     fontSize:25,
     color:'white',
   },
-  item:{
-    width:400,
-    height:60,
-    backgroundColor:'gray',
-    marginBottom:10,
-    borderRadius:15,
-  }
 
 });

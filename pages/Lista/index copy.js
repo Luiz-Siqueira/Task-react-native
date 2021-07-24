@@ -1,19 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState} from 'react';
-import { CheckBox,StyleSheet, Text, View} from 'react-native';
+import { CheckBox,StyleSheet, Text, View,TouchableOpacity,Modal} from 'react-native';
 
 
 export default function Lista({data}) {
 
-const [isSelected,setisSelected] = useState(false);
+  const [isSelected,setisSelected] = useState(false);
+  const [openModal,setOpenModal] = useState(false);
 
 
 function setSelection(){
   isSelected ? setisSelected(false) : setisSelected(true);
-  // apagar item se entrar aqui
 }
 
-
+function teste() {
+  
+}
 
   return (
     <View style={styles.container}>
@@ -24,9 +26,19 @@ function setSelection(){
             style={styles.checkbox}
             tintColors={{ true: '#38A8E7' }}
           />
-          <View style={styles.item}>
-            <Text style={styles.textButton}>{data.title}</Text>
-          </View>
+          <TouchableOpacity style={styles.item} onPress={setOpenModal(true)}>
+          <Text style={styles.textButton}>{data.title}</Text>
+          </TouchableOpacity>
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={true}
+            onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            // setModalVisible(!modalVisible);
+            }}
+      ></Modal>
     </View>
   );
 }
@@ -60,5 +72,4 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     fontSize:18,
   }
-
 });
