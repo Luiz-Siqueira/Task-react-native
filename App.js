@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { StyleSheet, Text, View,TextInput,TouchableOpacity,FlatList} from 'react-native';
 import firebase from './services/firebaseConnection';
 
@@ -10,11 +10,34 @@ export default function App() {
   const [valInput,setValInput] = useState();
   const [data,setData] = useState([]);
 
+  
+  useEffect(() => {
+
+    async function dados(){
+        await firebase.database().ref('task').on('value',(snapshot) => {
+          setData([]);
+            snapshot.forEach((chilItem) => {
+                let lista = {
+                    key:chilItem.key,
+                    text: chilItem.val().text,
+                    idade: chilItem.val().checked
+                }
+                setData(oldArray => [lista,...oldArray])
+            });
+        })           
+    }
+
+    dados()
+    console.log(data)
+
+},[])
 
 
   async function sendInputList(){
-    await firebase.database().ref('task').child(1).set({
-      id:1,
+    let listas = await firebase.database().ref('task')
+    let chave = listas.push().key;
+    await firebase.database().ref('task').child(chave).set({
+      key:chave,
       text:valInput,
       checked:false,
     })
@@ -38,7 +61,7 @@ export default function App() {
       <FlatList
         data={data}
         renderItem={({item}) => <Lista style={styles.item}  data={item}/>}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.key}
       />
       <StatusBar style="auto" />
     </View>

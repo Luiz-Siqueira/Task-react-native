@@ -25,7 +25,7 @@ function setSelection(){
             tintColors={{ true: '#38A8E7' }}
           />
           <View style={styles.item}>
-            <Text style={styles.textButton}>{data.title}</Text>
+            <Text style={styles.textButton}>{data.text}</Text>
           </View>
     </View>
   );
@@ -55,10 +55,11 @@ const styles = StyleSheet.create({
       marginBottom:10,
   },
   textButton:{
-    textAlign:'center',
+    textAlign:'left',
     color:'white',
     fontWeight:'bold',
     fontSize:18,
+    paddingLeft:15
   }
 
 });
