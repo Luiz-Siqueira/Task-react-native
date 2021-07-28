@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState,useEffect} from 'react';
-import { StyleSheet, Text, View,TextInput,TouchableOpacity,FlatList} from 'react-native';
+import { StyleSheet, Text, View,TextInput,TouchableOpacity,FlatList,Animated} from 'react-native';
 import firebase from './services/firebaseConnection';
 
 import Lista from './pages/Lista';
@@ -9,6 +9,7 @@ export default function App() {
 
   const [valInput,setValInput] = useState();
   const [data,setData] = useState([]);
+  const [redSquareAnim] = useState(new Animated.Value(0))
 
   
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function App() {
                 let lista = {
                     key:chilItem.key,
                     text: chilItem.val().text,
-                    idade: chilItem.val().checked
+                    checked: chilItem.val().checked
                 }
                 setData(oldArray => [lista,...oldArray])
             });
@@ -30,8 +31,14 @@ export default function App() {
     dados()
     console.log(data)
 
+   
+
+    
+
 },[])
 
+  function onPressTiming(){
+  }
 
   async function sendInputList(){
     let listas = await firebase.database().ref('task')
@@ -43,6 +50,9 @@ export default function App() {
     })
   }
 
+  Animated.timing(redSquareAnim, {toValue: 200, duration: 1000})
+
+ 
 
   return (
     <View style={styles.container}>

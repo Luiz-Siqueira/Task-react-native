@@ -1,23 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState} from 'react';
-import { CheckBox,StyleSheet, Text, View} from 'react-native';
+import { CheckBox,StyleSheet, Text, View,Animated} from 'react-native';
 
 
 export default function Lista({data}) {
 
 const [isSelected,setisSelected] = useState(false);
+const [redSquareAnim] = useState(new Animated.Value(1))
 
 
 function setSelection(){
   isSelected ? setisSelected(false) : setisSelected(true);
-  // apagar item se entrar aqui
+  // apagar item se entrar 
+  if(isSelected == false){
+    Animated.timing(redSquareAnim, {toValue: 0, duration: 500,useNativeDriver: true}).start()
+  }
+
 }
 
-
+Animated.timing(redSquareAnim, {toValue: 0, duration: 500})
 
   return (
-    <View style={styles.container}>
-        
+    <Animated.View style={[styles.container, {opacity:redSquareAnim}]}>
           <CheckBox
             value={isSelected}
             onValueChange={setSelection}
@@ -27,7 +31,7 @@ function setSelection(){
           <View style={styles.item}>
             <Text style={styles.textButton}>{data.text}</Text>
           </View>
-    </View>
+    </Animated.View>
   );
 }
 
