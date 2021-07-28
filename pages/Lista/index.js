@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState} from 'react';
 import { CheckBox,StyleSheet, Text, View,Animated} from 'react-native';
-
+import firebase from '../../services/firebaseConnection';
 
 export default function Lista({data}) {
 
@@ -9,12 +9,16 @@ const [isSelected,setisSelected] = useState(false);
 const [redSquareAnim] = useState(new Animated.Value(1))
 
 
-function setSelection(){
+async function setSelection(){
   isSelected ? setisSelected(false) : setisSelected(true);
   // apagar item se entrar 
-  if(isSelected == false){
-    Animated.timing(redSquareAnim, {toValue: 0, duration: 500,useNativeDriver: true}).start()
-  }
+
+  await firebase.database().ref('task').child(data.key).remove()
+  .then( () => {
+    if(isSelected == false){
+      Animated.timing(redSquareAnim, {toValue: 0, duration: 500,useNativeDriver: true}).start()
+    }
+  })
 
 }
 
