@@ -5,11 +5,12 @@ import firebase from './services/firebaseConnection';
 
 import Lista from './pages/Lista';
 
+import Skeleton from './pages/skeleton';
 export default function App() {
 
   const [valInput,setValInput] = useState();
   const [data,setData] = useState([]);
-  const [redSquareAnim] = useState(new Animated.Value(0))
+  const [loading,setLoading] = useState(true);
 
   
   useEffect(() => {
@@ -31,14 +32,11 @@ export default function App() {
     dados()
     console.log(data)
 
-   
-
-    
-
+    let timer = setInterval(()=>{
+      setLoading(false);
+    }, 3000)
 },[])
 
-  function onPressTiming(){
-  }
 
   async function sendInputList(){
     let listas = await firebase.database().ref('task')
@@ -50,7 +48,6 @@ export default function App() {
     })
   }
 
-  Animated.timing(redSquareAnim, {toValue: 200, duration: 1000})
 
  
 
@@ -68,11 +65,14 @@ export default function App() {
         <Text style={styles.textButton}>+</Text>
       </TouchableOpacity>
       </View>
+      <Skeleton visible={loading}>
+      
       <FlatList
         data={data}
         renderItem={({item}) => <Lista style={styles.item}  data={item}/>}
         keyExtractor={item => item.key}
       />
+      </Skeleton>
       <StatusBar style="auto" />
     </View>
   );
