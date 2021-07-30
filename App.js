@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import React,{useState,useEffect} from 'react';
-import { StyleSheet, Text, View,TextInput,TouchableOpacity,FlatList,Animated} from 'react-native';
+import { StyleSheet, Text, View,TextInput,TouchableOpacity,FlatList,StatusBar,Keyboard} from 'react-native';
 import firebase from './services/firebaseConnection';
 import Lista from './pages/Lista';
 
@@ -30,7 +29,6 @@ export default function App() {
     }
 
     dados()
-    console.log(data)
 
     let timer = setInterval(()=>{
       setLoading(false);
@@ -46,6 +44,9 @@ export default function App() {
       text:valInput,
       checked:false,
     })
+
+    setValInput('');
+    Keyboard.dismiss();
   }
 
 
@@ -53,6 +54,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="auto" />
       <View style={styles.container_flex}>
       <TextInput style={styles.input}
           placeholder="Digite uma tarefa"
@@ -74,7 +76,6 @@ export default function App() {
         keyExtractor={item => item.key}
       />
       </Skeleto>
-      <StatusBar style="auto" />
     </View>
   );
 }
@@ -82,12 +83,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
   },
   container_flex:{
     flexDirection:'row',
-    padding:50
+    margin:30
   },
   input: {
     height:60,

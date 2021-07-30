@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import React,{ useState , useEffect} from 'react';
-import {StyleSheet , View,Animated,Text} from 'react-native';
+import React  from 'react';
+import {StyleSheet , View} from 'react-native';
 
 import Skeleton from "rn-skeleton-loader";
 
