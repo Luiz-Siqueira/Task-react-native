@@ -1,63 +1,81 @@
 import { StatusBar } from 'expo-status-bar';
-import React,{ useEffect} from 'react';
-import {StyleSheet , View,Animated} from 'react-native';
+import React,{ useState , useEffect} from 'react';
+import {StyleSheet , View,Animated,Text} from 'react-native';
+
+import Skeleton from "rn-skeleton-loader";
 
 
+export default function Skeleto({ visible, children }) {
 
-export default function Skeleton({ visible, children }) {
-
-const AnimatedValue = new Animated.Value(0);
-
-useEffect(()=>{
-    circleAnimated();
-
-
-    return () => circleAnimated();
-},[]);
-
-const translateX = AnimatedValue.interpolate({
-    inputRange:[0,1],
-    outputRange:[-10,500]
-});
-
-const circleAnimated = ()=>{
-        AnimatedValue.setValue(0)
-        Animated.timing(AnimatedValue, {toValue: 1, duration: 350,useNativeDriver: false}).start( ()=>{
-            setTimeout(()=>{
-                circleAnimated()
-            },1000)
-            
-        } )
-
-}
 
     if(visible){
         return (
+            <View>
             <View style={styles.container}>
-                <View style={styles.checkbox}>
-                <Animated.View
-                        style={{
-                            width:'30%',
-                            height:'100%',
-                            opacity:0.3,
-                            backgroundColor:'red',
-                            transform:[{ translateX: translateX}]
-                        }}
-                    >
-                    </Animated.View>
+                <View style={styles.checkbox}>    
+                <Skeleton loading={true}  height={30} width={1000}>
+                </Skeleton>
                 </View>
                 <View style={styles.item}>
-                <Animated.View
-                        style={{
-                            width:'3%',
-                            height:'100%',
-                            opacity:0.3,
-                            backgroundColor:'red',
-                            transform:[{ translateX: translateX}]
-                        }}
-                    >
-                    </Animated.View>
+                <Skeleton loading={true}  height={100} width={1000} >
+                <View style={styles.item}>
                 </View>
+                </Skeleton>
+                </View>
+            </View>
+
+            <View style={styles.container}>
+                <View style={styles.checkbox}>    
+                <Skeleton loading={true}  height={30} width={1000}>
+                </Skeleton>
+                </View>
+                <View style={styles.item}>
+                <Skeleton loading={true}  height={100} width={1000} >
+                <View style={styles.item}>
+                </View>
+                </Skeleton>
+                </View>
+            </View>
+
+            <View style={styles.container}>
+                <View style={styles.checkbox}>    
+                <Skeleton loading={true}  height={30} width={1000}>
+                </Skeleton>
+                </View>
+                <View style={styles.item}>
+                <Skeleton loading={true}  height={100} width={1000} >
+                <View style={styles.item}>
+                </View>
+                </Skeleton>
+                </View>
+            </View>
+
+            <View style={styles.container}>
+                <View style={styles.checkbox}>    
+                <Skeleton loading={true}  height={30} width={1000}>
+                </Skeleton>
+                </View>
+                <View style={styles.item}>
+                <Skeleton loading={true}  height={100} width={1000} >
+                <View style={styles.item}>
+                </View>
+                </Skeleton>
+                </View>
+            </View>
+
+            <View style={styles.container}>
+                <View style={styles.checkbox}>    
+                <Skeleton loading={true}  height={30} width={1000}>
+                </Skeleton>
+                </View>
+                <View style={styles.item}>
+                <Skeleton loading={true}  height={100} width={1000} >
+                <View style={styles.item}>
+                </View>
+                </Skeleton>
+                </View>
+            </View>
+
             </View>
         );
     }
@@ -74,6 +92,7 @@ const circleAnimated = ()=>{
 
 const styles = StyleSheet.create({
   container: {
+      width:'90%',
     flexDirection:'row',
     justifyContent:'center',
   },
@@ -96,8 +115,8 @@ const styles = StyleSheet.create({
       height:30,
       marginRight:15,
       marginBottom:10,
-      backgroundColor:'#ECEFF1',
       overflow:'hidden',
+      borderRadius:5
   },
 
 

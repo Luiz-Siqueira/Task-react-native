@@ -2,10 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import React,{useState,useEffect} from 'react';
 import { StyleSheet, Text, View,TextInput,TouchableOpacity,FlatList,Animated} from 'react-native';
 import firebase from './services/firebaseConnection';
-
 import Lista from './pages/Lista';
 
-import Skeleton from './pages/skeleton';
+import Skeleto from './pages/skeleton';
+
 export default function App() {
 
   const [valInput,setValInput] = useState();
@@ -65,14 +65,15 @@ export default function App() {
         <Text style={styles.textButton}>+</Text>
       </TouchableOpacity>
       </View>
-      <Skeleton visible={loading}>
+
+      <Skeleto visible={loading}>
       
       <FlatList
         data={data}
         renderItem={({item}) => <Lista style={styles.item}  data={item}/>}
         keyExtractor={item => item.key}
       />
-      </Skeleton>
+      </Skeleto>
       <StatusBar style="auto" />
     </View>
   );
