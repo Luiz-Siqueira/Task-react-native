@@ -18,7 +18,7 @@ Este projeto foi construído com o objetivo didatico e incremento ao portfólio.
 
 
 ## Informações Adicionais
-Foi utilizado utilizado Expo, firebase para armazenas as tasks e uma bliblioteca chamada <a href="https://github.com/iKrushYou/rn-skeleton-loader">rn-skeleton-loader</a> para fazer o efeito de skeleton
+Foi utilizado Expo, firebase para armazenas as tasks e uma bliblioteca chamada <a href="https://github.com/iKrushYou/rn-skeleton-loader">rn-skeleton-loader</a> para fazer o efeito de skeleton
 
 
 ## *Demo*
